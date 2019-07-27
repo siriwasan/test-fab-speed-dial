@@ -1,0 +1,9 @@
+.speed-dial-content {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+button[speed-dial-option] {
+  margin-bottom: 16px;
+  transform-origin: 50% 100%;
+}
