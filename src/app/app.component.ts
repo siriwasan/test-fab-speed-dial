@@ -1,21 +1,33 @@
 import { Component } from '@angular/core';
 
-interface Option {
-  label: string;
-  icon: string;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public options: Option[] = [
-    { label: 'Email', icon: 'email' },
-    { label: 'Copy', icon: 'content_copy' },
-    { label: 'Message', icon: 'message' }
-  ];
+  title = 'test-mat-reactive-form';
 
-  public hasLabels = true;
+  // tslint:disable-next-line: variable-name
+  private _fixed = false;
+
+  public open = false;
+  public spin = true;
+  public direction = 'up'; // up, down, left, right
+  public animationMode = 'fling'; // fling, scale
+
+  get fixed(): boolean {
+    return this._fixed;
+  }
+
+  set fixed(fixed: boolean) {
+    this._fixed = fixed;
+    if (this._fixed) {
+      this.open = true;
+    }
+  }
+
+  doAction(action: string) {
+    console.log(action);
+  }
 }

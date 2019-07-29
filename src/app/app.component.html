@@ -1,42 +1,44 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">Speed Dial</mat-toolbar>
-<div class="content">
-  <div class="mat-body-1">
-    <span>Material &gt; Guidelines &gt; Components &gt; </span>
-    <a href="https://material.io/guidelines/components/buttons-floating-action-button.html"
-      >Buttons: Floating Action Button</a
-    >
-    <span> &gt; </span>
-    <a
-      href="https://material.io/guidelines/components/buttons-floating-action-button.html#buttons-floating-action-button-transitions"
-      >Transitions</a
-    >
-    <span> &gt; Speed dial</span>
-  </div>
-  <mat-checkbox [(ngModel)]="hasLabels">With labels</mat-checkbox>
-</div>
-<div class="fab-container">
-  <speed-dial #dial="speedDial">
-    <button
-      *ngFor="let option of options"
-      mat-mini-fab
-      speed-dial-option
-      [speedDialOptionLabel]="hasLabels ? option.label : null"
-    >
-      <mat-icon>{{ option.icon }}</mat-icon>
+<fab-speed-dial
+  class="speed-dial-container"
+  [(open)]="open"
+  [direction]="direction"
+  [animationMode]="animationMode"
+  [fixed]="fixed"
+>
+  <fab-speed-dial-trigger [spin]="spin">
+    <button mat-fab (click)="doAction('trigger')">
+      <mat-icon class="fab-spin90">more_horiz</mat-icon>
     </button>
-  </speed-dial>
-  <button mat-fab [speedDialTriggerFor]="dial" #trigger="speedDialTrigger">
-    <mat-icon *ngIf="!trigger.isOpen">share</mat-icon>
-    <mat-icon *ngIf="trigger.isOpen">close</mat-icon>
-  </button>
-</div>
+  </fab-speed-dial-trigger>
 
-<p *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
-  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam,
-  feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies
-  mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi,
-  condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum
-  rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent
-  dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.
-  Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+  <fab-speed-dial-actions>
+    <button
+      mat-mini-fab
+      matTooltip="search"
+      matTooltipPosition="before"
+      color="primary"
+      #tooltip="matTooltip"
+      (click)="doAction('search')"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="edit" matTooltipPosition="before" color="secondary" (click)="doAction('edit')">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="home" matTooltipPosition="before" (click)="doAction('home')">
+      <mat-icon>home</mat-icon>
+    </button>
+  </fab-speed-dial-actions>
+</fab-speed-dial>
+
+<p *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Sed risus ultricies tristique nulla. Facilisis sed odio morbi quis commodo. Duis at consectetur lorem donec
+  massa. Et netus et malesuada fames ac turpis egestas. Venenatis tellus in metus vulputate eu. Phasellus faucibus
+  scelerisque eleifend donec pretium. Cursus in hac habitasse platea dictumst. Ante metus dictum at tempor commodo
+  ullamcorper. Erat velit scelerisque in dictum. Facilisi morbi tempus iaculis urna id volutpat. Arcu dictum varius duis
+  at consectetur lorem. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Volutpat blandit
+  aliquam etiam erat velit scelerisque in. Nulla malesuada pellentesque elit eget. Mattis aliquam faucibus purus in
+  massa tempor nec feugiat nisl. Cras sed felis eget velit aliquet sagittis id consectetur. Nullam ac tortor vitae purus
+  faucibus ornare suspendisse.
 </p>

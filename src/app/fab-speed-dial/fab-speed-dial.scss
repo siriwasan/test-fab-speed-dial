@@ -1,0 +1,195 @@
+@mixin fab-speed-dial-container($box-orient, $flex-direction) {
+  -webkit-box-orient: $box-orient;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: $flex-direction;
+  flex-direction: $flex-direction;
+}
+
+@mixin fab-speed-dial-box-order($ordinal-group, $order) {
+  -webkit-box-ordinal-group: $ordinal-group;
+  -webkit-order: $order;
+  order: $order;
+}
+
+@mixin fab-speed-dial-actions(
+  $box-orient,
+  $box-direction,
+  $flex-direction,
+  $ordinal-group,
+  $order,
+  $action-item-margin-direction
+) {
+  -webkit-box-orient: $box-orient;
+  -webkit-box-direction: $box-direction;
+  -webkit-flex-direction: $flex-direction;
+  flex-direction: $flex-direction;
+  @include fab-speed-dial-box-order($ordinal-group, $order);
+
+  & .fab-action-item {
+    margin-#{$action-item-margin-direction}: 10px;
+  }
+}
+
+fab-speed-dial {
+  display: inline-block;
+
+  &.fab-opened {
+    .fab-speed-dial-container {
+      fab-speed-dial-trigger.fab-spin {
+        .fab-spin90 {
+          -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+        }
+        .fab-spin180 {
+          -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+        }
+        .fab-spin360 {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
+  .fab-speed-dial-container {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    z-index: 20;
+
+    fab-speed-dial-trigger {
+      pointer-events: auto;
+      z-index: 24;
+
+      &.fab-spin {
+        .fab-spin90 {
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fab-spin180,
+        .fab-spin360 {
+          -webkit-transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      }
+    }
+
+    fab-speed-dial-actions {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      position: absolute;
+      height: 0;
+      width: 0;
+    }
+  }
+
+  &.fab-fling {
+    .fab-speed-dial-container {
+      fab-speed-dial-actions {
+        & .fab-action-item {
+          display: block;
+          opacity: 1;
+          -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+          transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+        }
+      }
+    }
+  }
+
+  &.fab-scale {
+    .fab-speed-dial-container {
+      fab-speed-dial-actions {
+        & .fab-action-item {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+          -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+          transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+          -webkit-transition-duration: 0.14286s;
+          transition-duration: 0.14286s;
+        }
+      }
+    }
+  }
+
+  &.fab-down {
+    fab-speed-dial-actions {
+      bottom: 2px;
+      left: 7px;
+    }
+
+    .fab-speed-dial-container {
+      @include fab-speed-dial-container(vertical, column);
+
+      & fab-speed-dial-trigger {
+        @include fab-speed-dial-box-order(2, 1);
+      }
+
+      & fab-speed-dial-actions {
+        @include fab-speed-dial-actions(vertical, normal, column, 3, 2, top);
+      }
+    }
+  }
+
+  &.fab-up {
+    fab-speed-dial-actions {
+      top: 2px;
+      left: 7px;
+    }
+
+    .fab-speed-dial-container {
+      @include fab-speed-dial-container(vertical, column);
+
+      & fab-speed-dial-trigger {
+        @include fab-speed-dial-box-order(3, 2);
+      }
+
+      & fab-speed-dial-actions {
+        @include fab-speed-dial-actions(vertical, reverse, column-reverse, 2, 1, bottom);
+      }
+    }
+  }
+
+  &.fab-left {
+    fab-speed-dial-actions {
+      top: 7px;
+      left: 2px;
+    }
+
+    .fab-speed-dial-container {
+      @include fab-speed-dial-container(horizontal, row);
+
+      & fab-speed-dial-trigger {
+        @include fab-speed-dial-box-order(3, 2);
+      }
+
+      & fab-speed-dial-actions {
+        @include fab-speed-dial-actions(horizontal, normal, row-reverse, 2, 1, right);
+      }
+    }
+  }
+
+  &.fab-right {
+    fab-speed-dial-actions {
+      top: 7px;
+      right: 2px;
+    }
+
+    .fab-speed-dial-container {
+      @include fab-speed-dial-container(horizontal, row);
+
+      & fab-speed-dial-trigger {
+        @include fab-speed-dial-box-order(2, 1);
+      }
+
+      & fab-speed-dial-actions {
+        @include fab-speed-dial-actions(horizontal, normal, row, 3, 2, left);
+      }
+    }
+  }
+}
